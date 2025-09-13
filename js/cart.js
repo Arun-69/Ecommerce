@@ -49,7 +49,15 @@ function addToCart(productElement) {
       title: title,
       price: price,
       size: size,
-      quantity: 1
+      quantity: 1,
+      color:"",
+      colors:[
+        {name:"Red", mainImage:"image/product1_red_1.jpg"},
+        {name:"Yellow", mainImage:"image/product1_yellow_1.jpg"},
+        {name:"Green", mainImage:"image/product1_green_1.jpg"},
+        {name:"Maroon", mainImage:"image/product1_maroon_1.jpg"},
+        {name:"White", mainImage:"image/product1_white_1.jpg"}
+      ]
     });
   }
 
@@ -67,18 +75,49 @@ function renderCart() {
   const cart = getCart();
   cartContent.innerHTML = "";
   let total = 0;
+  // const btn2 = document.querySelector(".btn2")
+  // btn2.addEventListener("click",(e)=>{
 
+  // })
   cart.forEach((item, index) => {
     const cartBox = document.createElement("div");
     cartBox.classList.add("cart-box");
+
+    // Build color options dynamically
+  let colorHTML = "";
+  if (item.colors && item.colors.length > 0) {
+    colorHTML = `
+      <div class="color-options">
+        ${item.colors.map(c => `
+          <img 
+            src="${c.mainImage}" 
+            class="color-choice ${item.color === c.name ? "active" : ""}" 
+            data-color="${c.name}" 
+            data-img="${c.mainImage}">
+        `).join("")}
+      </div>
+    `;
+    }
     cartBox.innerHTML = `
       <img src="${item.image}" class="cart-img">
       <div class="cart-detail">
         <h2 class="cart-product-title">${item.title}</h2>
         <span class="cart-price">$${item.price}</span>
          <div class="size-options">
-                    <button class="btn2">${item.size}</button>
-                </div>
+        <button class="btn2">${item.size || "Select Size"}</button>
+        <div class="dropdown hidden">
+          <button class="size-choice">S</button>
+          <button class="size-choice">M</button>
+          <button class="size-choice">L</button>
+          <button class="size-choice">XL</button>
+          <button class="size-choice">XXL</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Color Selector -->
+      ${colorHTML}
+
+
         <div class="cart-quantity">
           <button class="decrement">-</button>
           <span class="number">${item.quantity}</span>
@@ -90,11 +129,58 @@ function renderCart() {
 
     cartContent.appendChild(cartBox);
 
+     const btn2 = cartBox.querySelector(".btn2");
+  const dropdown = cartBox.querySelector(".dropdown");
+
+  btn2?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    document.querySelectorAll(".dropdown").forEach(d => d.classList.add("hidden"));
+    dropdown.classList.toggle("hidden");
+  });
+
+  dropdown?.querySelectorAll(".size-choice").forEach(sizeBtn => {
+    sizeBtn.addEventListener("click", e => {
+      const newSize = e.target.textContent;
+      item.size = newSize;
+      btn2.textContent = newSize;
+      saveCart(cart);
+      dropdown.classList.add("hidden");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!cartBox.contains(e.target)) {
+      dropdown?.classList.add("hidden");
+    }
+  });
+
+  // ================= COLOR SELECTION =================
+  const mainImg = cartBox.querySelector(".cart-img");
+  const colorChoices = cartBox.querySelectorAll(".color-choice");
+
+  colorChoices.forEach(colorEl => {
+    colorEl.addEventListener("click", () => {
+      const newColor = colorEl.dataset.color;
+      const newImg = colorEl.dataset.img;
+
+      item.color = newColor;
+      item.image = newImg;
+
+      mainImg.src = newImg;
+      colorChoices.forEach(c => c.classList.remove("active"));
+      colorEl.classList.add("active");
+
+      saveCart(cart);
+    });
+  });
+
+
     // Remove item
     cartBox.querySelector(".cart-remove").addEventListener("click", () => {
       cart.splice(index, 1);
       saveCart(cart);
     });
+
 
     // Quantity change
     cartBox.querySelector(".cart-quantity").addEventListener("click", e => {
