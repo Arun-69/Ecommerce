@@ -77,7 +77,7 @@ const product = [
     },
     {
         id: 3,
-        title: "Men Striped Polo Shirt",
+        title: "Men Striped Polo T-Shirt New Style",
         price:"$20",       
         description:"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam voluptas provident assumenda atque incidunt enim, eaque debitis asperiores similique harum?",
         colors:[
@@ -119,7 +119,7 @@ const product = [
     },
     {
         id: 6,
-        title: "Men Casual USA Print Tee",
+        title: "Men Casual USA Print Tee T-Shirt",
         price:"$80",       
         description:"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam voluptas provident assumenda atque incidunt enim, eaque debitis asperiores similique harum?",
         colors:[
