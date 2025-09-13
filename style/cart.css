@@ -168,6 +168,7 @@ body{
   border-radius: 6px;
   cursor: pointer;
   border: 2px solid transparent;
+  margin-right: inherit;
 }
 .color-options img.active {
   border-color: #333;
