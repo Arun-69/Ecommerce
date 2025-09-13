@@ -234,7 +234,7 @@ nav .cart-icon .cart-item-count{
 }
 
 }
-@media screen and (max-width:320px){
+@media screen and ( max-width:500px){
 .btn-buy1 {
     padding: 7px 10px;
     background: orangered;
@@ -259,7 +259,7 @@ nav .cart-icon .cart-item-count{
         /* position: relative; */
     }
 nav{
- justify-content: flex-start;    
+ justify-content: space-between;    
 }
 nav .logo {
     font-size: 25px;
@@ -278,7 +278,8 @@ nav .logo {
 .product-detail .product-img img {
     display: block;
     width: 100%;
-    object-fit: cover;
+    height: 200px;
+    object-fit: contain;
 }
 .product-detail .thumbnails-img img {
     /* height: calc(100% /1-9px); */
