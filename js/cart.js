@@ -185,11 +185,3 @@ function getCart() {
     return [];
   }
 }
-
-// document.addEventListener("click", (e) => {
-//   if (e.target.closest(".size-options button")) {
-//     const allBtns = e.target.closest(".size-options").querySelectorAll("button");
-//     allBtns.forEach(btn => btn.classList.remove("selected"));
-//     e.target.classList.add("selected");
-//   }
-// });

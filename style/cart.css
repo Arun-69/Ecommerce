@@ -52,13 +52,7 @@ body{
     border-radius: 6px;
     object-fit: cover;
 }
-/* .info-box img{
-     width: 100px;
-    height: 100px;
-    margin-right: 20px;
-    border-radius: 6px;
-    object-fit: cover;
-} */
+
 .cart-detail , .info-detail{
     display: grid;
     margin-right: auto;
