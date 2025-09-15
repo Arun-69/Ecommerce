@@ -52,11 +52,11 @@ function addToCart(productElement) {
       quantity: 1,
       color:"",
       colors:[
-        {name:"Red", mainImage:"image/product1_red_1.jpg"},
-        {name:"Yellow", mainImage:"image/product1_yellow_1.jpg"},
-        {name:"Green", mainImage:"image/product1_green_1.jpg"},
-        {name:"Maroon", mainImage:"image/product1_maroon_1.jpg"},
-        {name:"White", mainImage:"image/product1_white_1.jpg"}
+        // {name:"Red", mainImage:"image/product1_red_1.jpg"},
+        // {name:"Yellow", mainImage:"image/product1_yellow_1.jpg"},
+        // {name:"Green", mainImage:"image/product1_green_1.jpg"},
+        // {name:"Maroon", mainImage:"image/product1_maroon_1.jpg"},
+        // {name:"White", mainImage:"image/product1_white_1.jpg"}
       ]
     });
   }
@@ -85,19 +85,23 @@ function renderCart() {
 
     // Build color options dynamically
   let colorHTML = "";
-  if (item.colors && item.colors.length > 0) {
-    colorHTML = `
-      <div class="color-options">
-        ${item.colors.map(c => `
-          <img 
-            src="${c.mainImage}" 
-            class="color-choice ${item.color === c.name ? "active" : ""}" 
-            data-color="${c.name}" 
-            data-img="${c.mainImage}">
-        `).join("")}
-      </div>
-    `;
-    }
+if (item.colors && item.colors.length > 0) {
+  colorHTML = `
+    <div class="color-options">
+      ${item.colors
+        .map(
+          (c) => `
+        <img 
+          src="${c.mainImage}" 
+          class="color-choice ${item.color === c.name ? "active" : ""}" 
+          data-color="${c.name}" 
+          data-img="${c.mainImage}">
+      `
+        )
+        .join("")}
+    </div>
+  `;
+}
     cartBox.innerHTML = `
       <img src="${item.image}" class="cart-img">
       <div class="cart-detail">
@@ -155,24 +159,24 @@ function renderCart() {
   });
 
   // ================= COLOR SELECTION =================
-  const mainImg = cartBox.querySelector(".cart-img");
-  const colorChoices = cartBox.querySelectorAll(".color-choice");
+  // const mainImg = cartBox.querySelector(".cart-img");
+  // const colorChoices = cartBox.querySelectorAll(".color-choice");
 
-  colorChoices.forEach(colorEl => {
-    colorEl.addEventListener("click", () => {
-      const newColor = colorEl.dataset.color;
-      const newImg = colorEl.dataset.img;
+  // colorChoices.forEach(colorEl => {
+  //   colorEl.addEventListener("click", () => {
+  //     const newColor = colorEl.dataset.color;
+  //     const newImg = colorEl.dataset.img;
 
-      item.color = newColor;
-      item.image = newImg;
+  //     item.color = newColor;
+  //     item.image = newImg;
 
-      mainImg.src = newImg;
-      colorChoices.forEach(c => c.classList.remove("active"));
-      colorEl.classList.add("active");
+  //     mainImg.src = newImg;
+  //     colorChoices.forEach(c => c.classList.remove("active"));
+  //     colorEl.classList.add("active");
 
-      saveCart(cart);
-    });
-  });
+  //     saveCart(cart);
+  //   });
+  // });
 
 
     // Remove item
@@ -224,7 +228,6 @@ function updateCartBadge() {
 function setupBuyBtn() {
   const buyBtn = document.querySelector(".btn-buy");
   if (!buyBtn) return;
-
   buyBtn.addEventListener("click", () => {
     const cart = getCart();
     if (cart.length === 0) return alert("Your cart is empty.");

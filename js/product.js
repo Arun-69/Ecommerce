@@ -71,7 +71,7 @@ const product = [
                     "image/product2_blue_3.jpg",
                     "image/product2_blue_4.jpg"
                 ],
-                sizes:["M","L","XL"]
+                sizes:["S","M","L","XL","XXL"]
             }
         ]  
     },
